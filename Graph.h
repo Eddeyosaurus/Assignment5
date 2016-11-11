@@ -2,6 +2,7 @@
 #define GRAPH_
 
 #include <iostream>
+#include "List.h"
 
 
 using namespace std;
@@ -30,4 +31,5 @@ class Graph{
 
 		List* adjList;
 
-}
+};
+#endif
