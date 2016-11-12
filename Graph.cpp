@@ -24,16 +24,15 @@ Graph& Graph::operator=(const Graph& other)
 
 void Graph::SetNumNodes()
 {
-	int temp;
+	string temp;
+	stringstream s;
 
 	cout << "How many nodes in the graph? ";
-	cin >> temp;
+	getline(cin, temp);
 
-	while(cin.fail()){
-		cout << "\nInput failed. Please try again.\n";
-		cout << "How many nodes in the graph? ";
-		cin >> temp;
-	}
+	temp = ReadInput();
+
+	cout << "\n\n";
 
 	numNodes = temp;
 
@@ -42,25 +41,48 @@ void Graph::SetNumNodes()
 
 void Graph::SetAdjList()
 {
+	int num;
+	string input;
+	stringstream sstream;
+
 	for(int i = 0; i < numNodes; i++)
 	{
-		int input;
+		cout << "\nPlease enter connecting nodes for node " << i << ":\n";
 		
-		cout << "Please enter connecting nodes for node " << i;
-		cin >> input;
+		getline(cin, input);
 		
-		while(!cin.fail())
+		while(input != "")
 		{
-			while(input == i)
+			num = CheckInput(input);
+
+			while(num == i)
 			{
 				cout << "Node may not be adjacent with self.\n";
-				cin >> input;
+				getline(cin, input);
+				num = CheckInput(input);
 			}
 
 			adjList[i].Insert(input);
-			cin >> input;
+			getline(cin,input);
 		}
 
 		adjList[i].Print();
 	}
+}
+
+int List::CheckInput(string input)
+{
+	int num;
+	stringstream sstream;
+	sstream >> num;
+
+	while(sstream.fail())
+	{
+		cout << "\nBad input, please try again: ";
+		getline(cin, input);
+		sstream(input);
+		sstream >> num;
+	}
+
+	return num;
 }

@@ -1,8 +1,10 @@
 #ifndef GRAPH_
 #define GRAPH_
 
+#include <sstream>
 #include <iostream>
 #include "List.h"
+
 
 
 using namespace std;
