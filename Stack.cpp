@@ -1,25 +1,26 @@
-#include "List.h"
+#include "Stack.h"
 
 
-List::List()
+Stack::Stack()
 {
 	head = NULL;
 	tail = NULL;
 	current = NULL;
+    size = 0;
 }
 
-List::~List()
+Stack::~Stack()
 {
-	current = tail;
+	current = head;
 
 	while(current){
-		tail = tail->prev;
+		head = head->next;
 		delete current;
-		current = tail;
+		current = head;
 	}
 }
 
-List::List(const List& other)
+Stack::Stack(const Stack& other)
 {
 	if(other.head)
 	{
@@ -48,7 +49,7 @@ List::List(const List& other)
 	
 }
 
-List& List::operator=(const List& other)
+Stack& Stack::operator=(const Stack& other)
 {
 	if(other.head)
 	{
@@ -76,7 +77,7 @@ List& List::operator=(const List& other)
 	}
 }
 
-void List::Insert(int i)
+void Stack::Push(int i)
 {
 	nodePtr temp = new Node;
 	temp->data = i;
@@ -85,49 +86,56 @@ void List::Insert(int i)
 
 	if(!head){
 		head = temp;
-        head->next = NULL;
         tail = head;
+        head->next = NULL;
+        head->prev = NULL;
+        
     }
 	else{
-		tail->next = temp;
-        tail = tail->next;
+		temp->next = head;
+        head = temp;
     }
+    size++;
 }
 
-
-void List::Reset()
+int Stack::Pop()
 {
-    current = head;
-}
-
-
-bool List::GetNext()
-{
-    if(current->next){
-        current = current->next;
-        return true;
-    }
+    int temp;
     
-    else
+    current = head;
+    
+    if(head){
+        head = head->next;
+    
+        temp = current->data;
+    
+        delete current;
+    }
+    size--;
+    
+    return temp;
+}
+
+
+
+
+bool Stack::IsEmpty()
+{
+    if(size == 0)
+        return true;
+    else 
         return false;
 }
-
-
-int List::GetData()
-{
-    return current->data;
-}
-
-
-void List::Print()
-{
-    current = head;
     
-    cout << current->data << " ";
-    
-	while(GetNext())
+
+
+void Stack::Print()
+{
+	current = head;
+
+	while(current)
 	{
 		cout << current->data << " ";
+		current = current->next;
 	}
-	
 }

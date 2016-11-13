@@ -1,12 +1,12 @@
-#ifndef LIST_
-#define LIST_
+#ifndef STACK_
+#define STACK_
 
 #include <iostream>
 
 using namespace std;
 
 
-class List{
+class Stack{
 	public:
 		struct Node;
 		typedef Node* nodePtr;
@@ -17,15 +17,14 @@ class List{
 
 		};
 
-		List();
-		~List();
-		List& operator=(const List& other);
-		List(const List& other);
-        
-        void Reset();
-        bool GetNext();
-        int GetData();
-		void Insert(int i);
+		Stack();
+		~Stack();
+		Stack& operator=(const Stack& other);
+		Stack(const Stack& other);
+
+		void Push(int i);
+        int Pop();
+        bool IsEmpty();
 		void Print();
 
 
@@ -33,5 +32,6 @@ class List{
 		nodePtr head;
 		nodePtr current;
 		nodePtr tail;
+        int size;
 };
 #endif

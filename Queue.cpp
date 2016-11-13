@@ -1,14 +1,19 @@
-#include "List.h"
+#include "Queue.h"
 
 
-List::List()
+
+
+Queue::Queue()
 {
 	head = NULL;
 	tail = NULL;
 	current = NULL;
 }
 
-List::~List()
+
+
+
+Queue::~Queue()
 {
 	current = tail;
 
@@ -19,7 +24,10 @@ List::~List()
 	}
 }
 
-List::List(const List& other)
+
+
+
+Queue::Queue(const Queue& other)
 {
 	if(other.head)
 	{
@@ -48,7 +56,10 @@ List::List(const List& other)
 	
 }
 
-List& List::operator=(const List& other)
+
+
+
+Queue& Queue::operator=(const Queue& other)
 {
 	if(other.head)
 	{
@@ -76,58 +87,74 @@ List& List::operator=(const List& other)
 	}
 }
 
-void List::Insert(int i)
+
+
+
+bool Queue::IsEmpty()
+{
+    if(head)
+        return false;
+    else if(!head)
+        return true;
+}
+
+
+
+
+void Queue::Enqueue(int i)
 {
 	nodePtr temp = new Node;
 	temp->data = i;
 
-	current = head;
-
 	if(!head){
 		head = temp;
-        head->next = NULL;
         tail = head;
+        head->next = NULL;
+        head->prev = NULL;
+        
     }
 	else{
-		tail->next = temp;
-        tail = tail->next;
+		temp->next = head;
+        head->prev = temp;
+        head = temp;
+        head->prev = NULL;
     }
 }
 
 
-void List::Reset()
-{
-    current = head;
-}
 
 
-bool List::GetNext()
+int Queue::Dequeue()
 {
-    if(current->next){
-        current = current->next;
-        return true;
+    int temp;
+    
+    if(head && tail == head)
+    {
+        temp = head->data;
+        delete head;
+        head = NULL;
+        tail = NULL;
+    }
+    else if(tail){
+        temp = tail->data;
+        current = tail;
+        tail = tail->prev;
+        delete current;
     }
     
-    else
-        return false;
+    return temp;
 }
-
-
-int List::GetData()
-{
-    return current->data;
-}
-
-
-void List::Print()
-{
-    current = head;
     
-    cout << current->data << " ";
-    
-	while(GetNext())
+
+
+
+void Queue::Print()
+{
+	current = tail;
+
+	while(current)
 	{
 		cout << current->data << " ";
+		current = current->prev;
 	}
-	
 }

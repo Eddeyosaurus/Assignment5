@@ -1,12 +1,12 @@
-#ifndef LIST_
-#define LIST_
+#ifndef QUEUE_
+#define QUEUE_
 
 #include <iostream>
 
 using namespace std;
 
 
-class List{
+class Queue{
 	public:
 		struct Node;
 		typedef Node* nodePtr;
@@ -17,15 +17,14 @@ class List{
 
 		};
 
-		List();
-		~List();
-		List& operator=(const List& other);
-		List(const List& other);
-        
-        void Reset();
-        bool GetNext();
-        int GetData();
-		void Insert(int i);
+		Queue();
+		~Queue();
+		Queue& operator=(const Queue& other);
+		Queue(const Queue& other);
+
+		void Enqueue(int);
+        int Dequeue();
+        bool IsEmpty();
 		void Print();
 
 
